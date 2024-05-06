@@ -1,0 +1,24 @@
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=mullvad
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY="CHANGEME1"
+      - WIREGUARD_ADDRESSES="X.X.X.X/32"
+      - SERVER_CITIES=Amsterdam
+      - SHADOWSOCKS=on
+      - SHADOWSOCKS_PASSWORD="CHANGEME2"
+      - SHADOWSOCKS_CIPHER="chacha20-ietf-poly1305"
+    ports:
+      - 8388:8388/tcp
+      - 8388:8388/udp
+    restart: always
+  shadowsocks-libev:
+    image: shadowsocks/shadowsocks-libev
+    command: ss-local -s 192.168.1.100 -p 8388 -l 1080 -k "CHANGEME2" -m "chacha20-ietf-poly1305" -b "0.0.0.0" -t 300
+    ports:
+      - 1080:1080
+    restart: always
