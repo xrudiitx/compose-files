@@ -18,7 +18,7 @@ services:
     restart: always
   shadowsocks-libev:
     image: shadowsocks/shadowsocks-libev
-    command: ss-local -s 192.168.1.100 -p 8388 -l 1080 -k "CHANGEME2" -m "chacha20-ietf-poly1305" -b "0.0.0.0" -t 300
+    command: ss-local -s Y.Y.Y.Y -p 8388 -l 1080 -k "CHANGEME2" -m "chacha20-ietf-poly1305" -b "0.0.0.0" -t 300
     ports:
       - 1080:1080
     restart: always
