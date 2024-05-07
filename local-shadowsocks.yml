@@ -1,0 +1,20 @@
+services:
+  shadowsocks:
+    image: ghcr.io/akafeng/shadowsocks-rust
+    environment:
+      TZ: UTC
+      SERVER_ADDR: "0.0.0.0"
+      SERVER_PORT: 8389
+      PASSWORD: "CHANGEME"
+      METHOD: aes-256-gcm
+      TIMEOUT: 300
+    ports:
+      - "8389:8389"
+      - "8389:8389/udp"
+    restart: always
+  shadowsocks-libev:
+    image: shadowsocks/shadowsocks-libev
+    command: ss-local -s "X.X.X.X" -p 8389 -l 1081 -k "CHANGEME" -m "aes-256-gcm" -b "0.0.0.0" -t 300
+    ports:
+      - 1081:1081
+    restart: always
